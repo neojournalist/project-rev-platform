@@ -3,3 +3,6 @@
 node_modules/
 .env
 *.log
+.csv
+.npy
+**/__pycache__/
