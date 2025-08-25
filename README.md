@@ -42,6 +42,15 @@ This project was bootstrapped with Create React App to provide an interactive in
    ```bash
    npm install
    ```
+### Environment variables
+
+Create a `.env` file in the project root (or in `api/`) to configure optional settings:
+
+```
+email=your.name@example.com
+```
+
+The backend loads `.env` automatically on startup and will pass `email` to OpenAlex requests (for polite API usage).
 
 ### Available Scripts
 
@@ -88,30 +97,4 @@ This research project is available for academic and non-commercial use. Please c
 
 For questions about the research methodology or technical implementation, please refer to the project documentation or contact the author.
 
-## Running tests
-
-You can run the Python tests with either pytest or the built-in unittest runner.
-
-- Using pytest (recommended):
-
-```
-pip install pytest
-pytest -q
-```
-
-- Using unittest (no extra install):
-
-```
-python -m unittest discover -s api/tests -p "test_*.py"
-```
-
-## Environment variables
-
-Create a `.env` file in the project root (or in `api/`) to configure optional settings:
-
-```
-email=your.name@example.com
-```
-
-The backend loads `.env` automatically on startup and will pass `email` to OpenAlex requests (for polite API usage).
 
