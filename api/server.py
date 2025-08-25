@@ -4,12 +4,36 @@ import pandas as pd
 import sys
 import os
 
-# Add the current directory to Python path to ensure imports work
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-# Import functions directly to avoid circular imports
-from functions import load_reviewers, load_topic_classifier, label_submitted_abstract, map_topic_by_id
-from api import run_expertise_pipeline
+def load_env():
+    """Load simple KEY=VALUE pairs from .env files into environment variables."""
+    candidates = [
+        os.path.join(os.path.dirname(__file__), '..', '.env'),  # project root
+        os.path.join(os.path.dirname(__file__), '.env'),        # api/.env
+        '.env',                                                # cwd
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            try:
+                with open(path, 'r') as fh:
+                    for line in fh:
+                        line = line.strip()
+                        if not line or line.startswith('#') or '=' not in line:
+                            continue
+                        key, value = line.split('=', 1)
+                        key = key.strip()
+                        value = value.strip().strip('"').strip("'")
+                        if key and key not in os.environ:
+                            os.environ[key] = value
+            except Exception:
+                pass
+
+# Load environment on startup
+load_env()
+
+# Import from the api package to support relative imports inside submodules
+from api.functions import load_reviewers, load_topic_classifier, label_submitted_abstract, map_topic_by_id
+from api.api import run_expertise_pipeline
 
 app = Flask(__name__)
 #CORS(app)  # Allow requests from React frontend
@@ -44,7 +68,7 @@ def run_pipeline():
             print("🔍 Running classification only...")
             classifier = load_topic_classifier()
             submitted_label = label_submitted_abstract(manuscript, classifier)
-            mapping_df = pd.read_csv("topic_mapping.csv")
+            mapping_df = pd.read_csv(os.path.join(os.path.dirname(__file__), "topic_mapping.csv"))
             mapping = map_topic_by_id(mapping_df, submitted_label)
             
             # Convert any NaN values to None for JSON serialization

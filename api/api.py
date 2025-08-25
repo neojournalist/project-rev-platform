@@ -4,7 +4,7 @@ import re
 import os
 import pandas as pd
 import numpy as np
-from functions import (
+from .functions import (
     load_reviewers,
     load_model,
     load_topic_classifier,
@@ -39,11 +39,14 @@ def run_expertise_pipeline(manuscript_abstract, submitted_authors, submitted_ins
     print("🚀 Starting expertise pipeline...")
     
     print("📊 Loading reviewers data...")
-    reviewers_df = load_reviewers("clean_data_aug.csv")
+    base_dir = os.path.dirname(__file__)
+    reviewers_path = os.path.join(base_dir, "clean_data_aug.csv")
+    reviewers_df = load_reviewers(reviewers_path)
     print(f"   Loaded {len(reviewers_df)} reviewers")
     
     print("🧠 Loading embeddings...")
-    embeddings = np.load("specter_embeddings.npy")
+    emb_path = os.path.join(base_dir, "specter_embeddings.npy")
+    embeddings = np.load(emb_path)
     print(f"   Loaded embeddings shape: {embeddings.shape}")
     
     print("🏷️ Loading topic classifier...")
@@ -55,7 +58,8 @@ def run_expertise_pipeline(manuscript_abstract, submitted_authors, submitted_ins
     
     # 2) Label sunmitted abstract and derive fields
     print("🗺️ Loading topic mapping...")
-    mapping_df = pd.read_csv("topic_mapping.csv")  # must contain a 'topic_id' column!
+    mapping_csv = os.path.join(base_dir, "topic_mapping.csv")  # must contain a 'topic_id' column!
+    mapping_df = pd.read_csv(mapping_csv)
     label = label_submitted_abstract(manuscript_abstract, classifier)
     mapping = map_topic_by_id(mapping_df, label)
     print(f"   Topic mapping: {mapping}")
