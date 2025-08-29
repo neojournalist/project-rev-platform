@@ -3,6 +3,7 @@
 node_modules/
 .env
 *.log
-.csv
-.npy
+*.csv
+*.npy
 **/__pycache__/
+*/tests

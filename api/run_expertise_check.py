@@ -22,12 +22,6 @@ Dependencies:
 
 
 def main():
-    # 1) Get submitted manuscript
-    manuscript_abstract = "Purpose: The present study aims to contribute to the existing, yet still limited, research literature on the association between bonding social capital (BSC) and well-being in older populations, with a specific focus on understanding this association in a population of first-generation labour migrants with a collectivistic cultural background, living in an individualistic country. Methodology: A cross-sectional study was conducted with a sample of 119 Turkish first-generation labour migrants (64.7% male; age 65-87, M(SD)=71.13(5.04) and 124 Dutch non-migrants (32.3% male, age 65-94, M(SD)= 71.9(5.32). Both samples filled out either an online or printed questionnaire measuring bonding social capital (PSCSE, Simons et al., 2020), and psychological, social and emotional well-being (MHF-SF, Lamers et al., 2011) and relevant demographic covariates. Findings: Regression analyses showed positive associations between BSC and respectively overall well-being and its subdimensions emotional, social and psychological well-being in both samples. Moderation analyses showed that these associations were significantly stronger for the Turkish older migrants. These findings suggest that the migrant sample relies more heavily on close-knit homogeneous social networks for socioemotional support and assistance than the non-migrants. Originality: Research on social capital and the well-being of older migrants is limited. The results of this study clarify the role of social capital and are explained with the context of the combined challenges these migrants face and provide direction for further research and the development of practical interventions to improve the well-being of the rapidly growing and increasingly diverse older populations."
-    submitted_authors = "Marianne Simons"
-    submitted_institutions = "Open University of the Netherlands"
-
-
     # 1) Load model and classifier,
     classifier = load_topic_classifier()
     model = load_model()
